@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Sample</title>
+</head>
+<body>
+    <!-- The template will be rendered into this div -->
+    <div id='ractive-container'></div>
+
+    <!-- The ractive template -->
+    <script id='ractive-template' type='text/ractive'>
+        <table border="1">
+            <tr>
+                <th>name</th>
+                <th>isClass</th>
+            </tr>
+            {{#each types}}
+            <tr>
+                <td>{{name}}</td>
+                <td>{{isClass}}</td>
+            </tr>
+            {{/each}}
+        </table>
+    </script>
+    <script src="http://cdn.ractivejs.org/latest/ractive.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

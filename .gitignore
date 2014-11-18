@@ -1,0 +1,11 @@
+funscriptGettingStarted/lib/debug
+funscriptGettingStarted/lib/release
+Debug
+*.suo
+*.user
+obj
+bin
+packages/*
+!packages/repositories.config
+*.nupkg
+
