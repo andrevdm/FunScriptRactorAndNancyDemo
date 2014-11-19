@@ -9,7 +9,7 @@ open FunScript.HTML
 
 type AssemblyType = {name:string; isClass:bool; }
 
-let getAssemblyTypes = 
+let getAssemblyTypes =
     System.Reflection.Assembly.GetExecutingAssembly().GetTypes()
         |> Seq.map (fun m -> {name = m.Name; isClass = m.IsClass; })
 
@@ -39,7 +39,7 @@ module Web =
     let start () =
         let ractive = Globals.Ractive.CreateFast("#ractive-container", "#ractive-template")
         RactiveState.init(ractive, { reload = true; types = [||]; })
-            |> mainLoop 
+            |> mainLoop
             |> Async.StartImmediate
 
     let compile =
@@ -52,7 +52,7 @@ module Web =
 module Demo =
     type IndexModule() as x =
         inherit NancyModule()
-            do 
+            do
                 x.Get.["/ping"] <- fun _ -> box (DateTime.Now.ToString( "yyyy/MM/DD HH:mm:ss" ))
                 x.Get.["/data"] <- fun _ -> box (FormatterExtensions.AsJson(x.Response, getAssemblyTypes))
                 x.Get.["/"] <- fun _ -> box (File.ReadAllText( "../../index.html" ))
@@ -63,7 +63,10 @@ module Demo =
 
 
 [<EntryPoint>]
-let main argv = 
+let main argv =
+    //Leave the types cases they way they are in JSON
+    Nancy.Json.JsonSettings.RetainCasing <- true
+
     let uri = Uri("http://localhost:6543")
     use host = new NancyHost(uri)
     host.Start()
